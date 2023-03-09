@@ -1,0 +1,63 @@
+<?php
+
+namespace App\Models;
+
+use App\Http\Requests\ShowDominionCardsRequest;
+use http\Env\Request;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class DominionCard extends Model
+{
+    use HasFactory;
+
+    protected $table = 'dominion_cards';
+    protected $primaryKey = 'dominion_card_id';
+    public string $name;
+    public int $cost;
+    public string $image;
+    public string $types;
+    public string $effects;
+
+    protected $attributes = [
+        'name' => '',
+        'cost' => 0,
+        'types' => '',
+        'effects' => '',
+        'image' => ''
+    ];
+
+    protected $fillable = ['name', 'cost', 'effects', 'types', 'image'];
+
+    public static function databaseSearch(ShowDominionCardsRequest $request) {
+        return DominionCard::withName($request->name)
+            ->withCost($request->cost)
+            ->withEffects($request->effects)
+            ->withTypes($request->types)
+            ->orderBy('name')
+            ->get();
+    }
+
+    public function scopeWithName(Builder $query, string|null $name = '') {
+        $query->where('name', 'like', '%' . $name . '%');
+    }
+
+    public function scopeWithCost(Builder $query, int|null $cost) {
+        $query->when($cost != null, function (Builder $query) use ($cost) {
+            $query->where('cost', '=', $cost);
+        });
+    }
+
+    public function scopeWithEffects(Builder $query, string $effects) {
+        $query->when($effects != '[]', function (Builder $query) use ($effects) {
+            $query->where('effects', 'like', '%' . $effects . '%');
+        });
+    }
+
+    public function scopeWithTypes(Builder $query, string $types) {
+        $query->when($types != '[]', function (Builder $query) use ($types) {
+            $query->where('effects', 'like', '%' . $types . '%');
+        });
+    }
+}
