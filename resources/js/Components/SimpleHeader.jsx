@@ -15,7 +15,7 @@ export default function SimpleHeader({ links }) {
                     link.link === activeLink
                         ? "border-b-2 border-b-emerald-300 bg-emerald-300 bg-opacity-10 -mb-0.5 font-semibold"
                         : ""
-                } font-medium text-md  py-5 px-8 hover:text-white hover:border-b-2 hover:border-b-emerald-300 hover:bg-emerald-300 hover:bg-opacity-10 hover:-mb-0.5 transition duration-75`}
+                } font-medium text-md md:text-lg py-5 px-8 hover:text-white hover:border-b-2 hover:border-b-emerald-300 hover:bg-emerald-300 hover:bg-opacity-10 hover:-mb-0.5 transition duration-75`}
             >
                 {link.label}
             </Link>

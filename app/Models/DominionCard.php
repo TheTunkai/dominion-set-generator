@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class DominionCard extends Model
 {
@@ -34,7 +35,12 @@ class DominionCard extends Model
 
     public function cardSets(): BelongsToMany
     {
-        return $this->belongsToMany(DominionCardSet::class);
+        return $this->belongsToMany(DominionCardSet::class, 'dominion_cards_dominion_card_sets');
+    }
+
+    public function dominionCardDominionCardSet(): HasMany
+    {
+        return $this->hasMany(DominionCardSetDominionCard::class);
     }
 
     public static function databaseSearch(ShowDominionCardsRequest $request)
