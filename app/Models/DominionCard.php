@@ -14,6 +14,7 @@ class DominionCard extends Model
 
     protected $table = 'dominion_cards';
     protected $primaryKey = 'dominion_card_id';
+    public $timestamps = false;
     public string $name;
     public int $cost;
     public string $image;
@@ -25,7 +26,7 @@ class DominionCard extends Model
         'cost' => 0,
         'types' => '',
         'effects' => '',
-        'image' => ''
+        'image' => '',
     ];
 
     protected $fillable = ['name', 'cost', 'effects', 'types', 'image'];

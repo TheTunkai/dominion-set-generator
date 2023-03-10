@@ -16,8 +16,6 @@ return new class extends Migration {
             $table->string('types');
             $table->string('effects');
             $table->longText('image');
-            $table->timestamp('updated_at');
-            $table->timestamp('created_at');
         });
     }
 
