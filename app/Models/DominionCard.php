@@ -7,6 +7,7 @@ use http\Env\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class DominionCard extends Model
 {
@@ -31,7 +32,13 @@ class DominionCard extends Model
 
     protected $fillable = ['name', 'cost', 'effects', 'types', 'image'];
 
-    public static function databaseSearch(ShowDominionCardsRequest $request) {
+    public function cardSets(): BelongsToMany
+    {
+        return $this->belongsToMany(DominionCardSet::class);
+    }
+
+    public static function databaseSearch(ShowDominionCardsRequest $request)
+    {
         return DominionCard::withName($request->name)
             ->withCost($request->cost)
             ->withEffects($request->effects)
@@ -40,23 +47,27 @@ class DominionCard extends Model
             ->get();
     }
 
-    public function scopeWithName(Builder $query, string|null $name = '') {
+    public function scopeWithName(Builder $query, string|null $name = '')
+    {
         $query->where('name', 'like', '%' . $name . '%');
     }
 
-    public function scopeWithCost(Builder $query, int|null $cost) {
+    public function scopeWithCost(Builder $query, int|null $cost)
+    {
         $query->when($cost != null, function (Builder $query) use ($cost) {
             $query->where('cost', '=', $cost);
         });
     }
 
-    public function scopeWithEffects(Builder $query, string $effects) {
+    public function scopeWithEffects(Builder $query, string $effects)
+    {
         $query->when($effects != '[]', function (Builder $query) use ($effects) {
             $query->where('effects', 'like', '%' . $effects . '%');
         });
     }
 
-    public function scopeWithTypes(Builder $query, string $types) {
+    public function scopeWithTypes(Builder $query, string $types)
+    {
         $query->when($types != '[]', function (Builder $query) use ($types) {
             $query->where('effects', 'like', '%' . $types . '%');
         });
