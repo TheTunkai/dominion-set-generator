@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DominionCardController;
+use App\Http\Controllers\DominionCardSetController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Models\DominionCard;
+use App\Models\DominionCardSet;
 use Inertia\Inertia;
 
 /*
@@ -26,9 +28,16 @@ Route::get('/database', function () {
     return Inertia::render('Database', ['cards' => DominionCard::all()]);
 })->name('database');
 
+Route::get('/library', function () {
+    return Inertia::render('Library', ['cardSets' => DominionCardSet::all(), 'allCards' => DominionCard::all()]);
+})->name('library');
+
 Route::get('/database/index', [DominionCardController::class, 'index'])->name('index');
 Route::get('/database/search-cards', [DominionCardController::class, 'show'])->name('search-cards');
 
 Route::post('/database/add-card', [DominionCardController::class, 'store'])->name('add-card');
+Route::post('/database/add-card-set', [DominionCardSetController::class, 'store'])->name('add-card-set');
+
+Route::delete('/database/delete-card', [DominionCardController::class, 'destroy'])->name('delete-card');
 
 require __DIR__ . '/auth.php';

@@ -1,19 +1,13 @@
-import { Head } from "@inertiajs/react";
-import { router } from "@inertiajs/react";
-import { useEffect, useState } from "react";
+import { Head, router } from "@inertiajs/react";
+import { useState } from "react";
 import { useForm } from "@inertiajs/react";
-import InputText from "@/Components/InputText";
-import InputSelect from "@/Components/InputSelect";
 import {
     MultiSelect,
     TextInput,
     Select,
-    Switch,
     Alert,
-    Loader,
     LoadingOverlay,
     Tabs,
-    Notification,
     FileButton,
     Button,
     Image,
@@ -25,11 +19,22 @@ import {
     CheckCircleIcon,
 } from "@heroicons/react/24/outline";
 import CardGrid from "@/Components/CardGrid";
+import {
+    selectClasses,
+    tabClasses,
+    multiSelectClasses,
+    textInputClasses,
+} from "./../styleConstants";
+import {
+    ChevronDoubleRightIcon,
+    ChevronDoubleLeftIcon,
+} from "@heroicons/react/20/solid";
+
+import { messages } from "@/inputMessages";
 
 export default function Database(props) {
     const [showAlert, setShowAlert] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
-    const [cards, setCards] = useState([]);
     const {
         data: getData,
         setData: setGetData,
@@ -57,37 +62,8 @@ export default function Database(props) {
         cost: null,
         types: "[]",
         effects: "[]",
-        image: "no image",
+        image: "",
     });
-
-    const multiSelectClasses = {
-        item: "hover:bg-emerald-100",
-        root: "flex flex-col gap-2 ",
-        label: "text-emerald-50 text-md",
-        defaultValue: "bg-emerald-400 mx-2",
-        defaultValueLabel: "text-black",
-        defaultValueRemove:
-            "text-black hover:bg-emerald-500 hover:bg-opacity-40",
-        values: "bg-white max-w-[16rem] pl-2",
-        wrapper: "rounded",
-        searchInput: "focus:shadow-none focus:ring-0",
-    };
-
-    const textInputClasses = {
-        root: "flex flex-col gap-2",
-        input: "rounded h-10 focus:ring-0 focus:shadow-none focus:outline-emerald-500 focus:border-0",
-        label: "text-emerald-50 text-md",
-    };
-
-    const selectClasses = {
-        root: "flex flex-col gap-2",
-        input: "rounded h-10 focus:ring-0 focus:shadow-none focus:outline-emerald-500 focus:border-0",
-        label: "text-emerald-50 text-md",
-        item: "hover:bg-emerald-100",
-    };
-
-    const tabClasses =
-        "transition duration-75 text-lg bg-emerald-400 bg-opacity-50 hover:bg-opacity-80 hover:bg-emerald-400 aria-selected:bg-opacity-90 aria-selected:text-white aria-selected:font-semibold text-emerald-50";
 
     const cardTypes = [
         { label: "Action", value: "action" },
@@ -144,11 +120,18 @@ export default function Database(props) {
         });
     }
 
+    function handleDelete(event, id) {
+        event.preventDefault();
+        console.log(id);
+        router.delete(route("delete-card", { id: id }));
+    }
+
     function isPostInputMissing() {
         return (
             (postData.name === "") |
             (postData.types === "[]") |
-            (postData.effects === "[]")
+            (postData.effects === "[]") |
+            (postData.image === "")
         );
     }
 
@@ -178,7 +161,7 @@ export default function Database(props) {
             <Head>
                 <title>Database</title>
             </Head>
-            <main className="h-screen flex flex-col items-center p-24">
+            <main className="min-h-screen flex flex-col items-center p-24">
                 <Tabs defaultValue="search" color="teal">
                     <Tabs.List
                         className="border-b-emerald-500 border-opacity-50"
@@ -187,14 +170,14 @@ export default function Database(props) {
                         <Tabs.Tab
                             className={tabClasses}
                             value="search"
-                            icon={<MagnifyingGlassIcon className="h-6"/>}
+                            icon={<MagnifyingGlassIcon className="h-6" />}
                         >
                             Card Search
                         </Tabs.Tab>
                         <Tabs.Tab
                             className={tabClasses}
                             value="add-card"
-                            icon={<PlusIcon className="h-6"/>}
+                            icon={<PlusIcon className="h-6" />}
                         >
                             Add Cards
                         </Tabs.Tab>
@@ -241,7 +224,7 @@ export default function Database(props) {
                                             )
                                         }
                                         label="Card types"
-                                        placeholder="Select card effects"
+                                        placeholder="Select card types"
                                         variant="unstyled"
                                         classNames={multiSelectClasses}
                                     />
@@ -277,10 +260,23 @@ export default function Database(props) {
                             )}
                         </div>
                         <div>
-                            <h3 className="font-semibold text-xl text-center">
+                            <h3 className="font-semibold text-xl text-center mb-8">
                                 Search Results
                             </h3>
-                            <CardGrid cards={props.cards} />
+                            <CardGrid
+                                cards={props.cards}
+                                handleDelete={handleDelete}
+                            />
+                            <div className="grid grid-cols-2 mt-8">
+                                <button className="font-medium text-lg rounded-lg bg-emerald-500 bg-opacity-70 hover:bg-opacity-100 hover:underline mx-auto px-6 py-1 flex items-center gap-2">
+                                    <ChevronDoubleLeftIcon className="h-5" />
+                                    Prev
+                                </button>
+                                <button className="font-medium text-lg rounded-lg bg-emerald-500 bg-opacity-70 hover:bg-opacity-100 hover:underline mx-auto px-6 py-1 flex items-center gap-2">
+                                    Next
+                                    <ChevronDoubleRightIcon className="h-5" />
+                                </button>
+                            </div>
                         </div>
                     </Tabs.Panel>
                     <Tabs.Panel value="add-card" pt="xl">
@@ -333,7 +329,7 @@ export default function Database(props) {
                                             )
                                         }
                                         label="Card types"
-                                        placeholder="Select card effects"
+                                        placeholder="Select card types"
                                         variant="unstyled"
                                         classNames={multiSelectClasses}
                                     />
@@ -390,7 +386,7 @@ export default function Database(props) {
                                     closeButtonLabel="Close alert"
                                     onClose={() => setShowAlert(false)}
                                 >
-                                    Please fill all input fields!
+                                    {messages.cardPostError}
                                 </Alert>
                             )}
                             {showSuccess && (
@@ -403,7 +399,7 @@ export default function Database(props) {
                                     closeButtonLabel="Close alert"
                                     onClose={() => setShowSuccess(false)}
                                 >
-                                    The card was added successfully!
+                                    {messages.cardPostSuccess}
                                 </Alert>
                             )}
                         </div>

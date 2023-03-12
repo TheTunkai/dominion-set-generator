@@ -40,7 +40,8 @@ class DominionCardSet extends Model
         return DominionCardSet::withTitle($request->title)
             ->withCards($request->cards)
             ->orderBy('name')
-            ->get();
+            ->get()
+            ->orderBy('title');
     }
 
     public function scopeWithTitle(Builder $query, string $title = '')
@@ -48,5 +49,8 @@ class DominionCardSet extends Model
         $query->where('title', 'like', $title);
     }
 
-    // TODO: add scope for filtering card relations
+    public function scopeWithCards(Builder $query, string $cards)
+    {
+        $query->cards()->whereIn('name', json_decode($cards));
+    }
 }
