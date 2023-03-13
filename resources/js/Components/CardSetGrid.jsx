@@ -14,6 +14,7 @@ export default function CardSetGrid(props) {
             </h5>
             <div className="grid grid-cols-5 gap-2 mt-5">
                 {set.cards.map(card => <Image
+                    key={card.id}
                     src={card.image}
                     maw={60}
                     radius="sm"

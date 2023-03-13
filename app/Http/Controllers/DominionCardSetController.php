@@ -8,6 +8,7 @@ use App\Models\DominionCard;
 use App\Models\DominionCardSet;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use function MongoDB\BSON\toPHP;
 
 class DominionCardSetController extends Controller {
     public function show(ShowDominionCardSetsRequest $request) {
@@ -32,6 +33,6 @@ class DominionCardSetController extends Controller {
             $cardSet->cards()->attach($currentCard->id);
         }
 
-        return to_route('library');
+        return to_route("library");
     }
 }

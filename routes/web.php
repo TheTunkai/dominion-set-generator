@@ -30,13 +30,13 @@ Route::get('/database', function () {
 })->name('database');
 
 Route::get('/library', function () {
-    return Inertia::render('Library', ['cardSets' => DominionCardSet::with('cards')->get(), 'allCards' => DominionCard::all()]);
+    return Inertia::render('Library', ['cardSets' => DominionCardSet::with('cards')->simplePaginate(3), 'allCards' => DominionCard::all()]);
 })->name('library');
 
 Route::get('/database/search-cards', [DominionCardController::class, 'show'])->name('search-cards');
 
 Route::post('/database/add-card', [DominionCardController::class, 'store'])->name('add-card');
-Route::post('/database/add-card-set', [DominionCardSetController::class, 'store'])->name('add-card-set');
+Route::post('/library/add-card-set', [DominionCardSetController::class, 'store'])->name('add-card-set');
 
 Route::delete('/database/delete-card', [DominionCardController::class, 'destroy'])->name('delete-card');
 

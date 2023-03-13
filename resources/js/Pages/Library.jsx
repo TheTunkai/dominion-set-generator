@@ -1,19 +1,18 @@
 import {Head} from "@inertiajs/react";
-import {MultiSelect, Tabs, TextInput} from "@mantine/core";
+import {MultiSelect, Tabs, TextInput, Alert} from "@mantine/core";
 import {
     MagnifyingGlassIcon,
     ExclamationCircleIcon,
     PlusIcon,
     CheckCircleIcon,
-    Alert,
 } from "@heroicons/react/24/outline";
 import {useForm} from "@inertiajs/react";
 import {useState} from "react";
 import {messages} from "@/inputMessages";
 import CardSetGrid from "@/Components/CardSetGrid";
+import {ChevronDoubleLeftIcon, ChevronDoubleRightIcon} from "@heroicons/react/20/solid";
 
 export default function Library(props) {
-    console.log(props.cardSets)
     const [showAlert, setShowAlert] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const {
@@ -101,7 +100,7 @@ export default function Library(props) {
             <Head>
                 <title>Library</title>
             </Head>
-            <main className="h-screen flex flex-col items-center p-24">
+            <main className="min-h-screen flex flex-col items-center p-24">
                 <Tabs defaultValue="search" color="teal">
                     <Tabs.List
                         className="border-b-emerald-500 border-opacity-50"
@@ -167,7 +166,33 @@ export default function Library(props) {
                                         Search Results
                                     </h3>
                                     <div>
-                                        <CardSetGrid cardSets={props.cardSets}/>
+                                        <CardSetGrid cardSets={props.cardSets.data}/>
+                                        <div className="grid grid-cols-2 mt-8">
+                                            {props.cardSets.prev_page_url && (
+                                                <a
+                                                    className="col-start-1"
+                                                    href={props.cardSets.prev_page_url}
+                                                >
+                                                    <button
+                                                        className="font-medium text-lg rounded-lg bg-emerald-500 bg-opacity-70 hover:bg-opacity-100 hover:underline mx-auto px-6 py-1 flex items-center gap-2">
+                                                        <ChevronDoubleLeftIcon className="h-5"/>
+                                                        Prev
+                                                    </button>
+                                                </a>
+                                            )}
+                                            {props.cardSets.next_page_url && (
+                                                <a
+                                                    className="col-start-2"
+                                                    href={props.cardSets.next_page_url}
+                                                >
+                                                    <button
+                                                        className="font-medium text-lg rounded-lg bg-emerald-500 bg-opacity-70 hover:bg-opacity-100 hover:underline mx-auto px-6 py-1 flex items-center gap-2">
+                                                        Next
+                                                        <ChevronDoubleRightIcon className="h-5"/>
+                                                    </button>
+                                                </a>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             </form>
