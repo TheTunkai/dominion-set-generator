@@ -9,12 +9,6 @@ import {
 } from "@heroicons/react/24/outline";
 import { useForm } from "@inertiajs/react";
 import { useState } from "react";
-import {
-    tabClasses,
-    multiSelectClasses,
-    textInputClasses,
-} from "./../styleConstants";
-
 import { messages } from "@/inputMessages";
 
 export default function Library(props) {
@@ -45,6 +39,28 @@ export default function Library(props) {
         playedCards: "[]",
         author: "Unknown",
     });
+
+    const tabClasses =
+        "transition duration-75 text-lg bg-emerald-400 bg-opacity-50 hover:bg-opacity-80 hover:bg-emerald-400 aria-selected:bg-opacity-90 aria-selected:text-white aria-selected:font-semibold text-emerald-50";
+
+    const multiSelectClasses = {
+        item: "hover:bg-emerald-100",
+        root: "flex flex-col gap-2 ",
+        label: "text-emerald-50 text-md",
+        defaultValue: "bg-emerald-400 mx-2",
+        defaultValueLabel: "text-black",
+        defaultValueRemove:
+            "text-black hover:bg-emerald-500 hover:bg-opacity-40",
+        values: "bg-white max-w-[16rem] pl-2",
+        wrapper: "rounded",
+        searchInput: "focus:shadow-none focus:ring-0",
+    };
+
+    const textInputClasses = {
+        root: "flex flex-col gap-2",
+        input: "rounded h-10 focus:ring-0 focus:shadow-none focus:outline-emerald-500 focus:border-0",
+        label: "text-emerald-50 text-md",
+    };
 
     function handleSearch(event) {
         event.preventDefault();

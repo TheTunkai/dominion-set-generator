@@ -30,11 +30,6 @@ class DominionCardSet extends Model
         return $this->hasMany(DominionCard::class, 'dominion_cards_dominion_card_sets');
     }
 
-    public function dominionCardDominionCardSet(): HasMany
-    {
-        return $this->hasMany(DominionCardSetDominionCard::class);
-    }
-
     public static function databaseSearch(ShowDominionCardSetsRequest $request)
     {
         return DominionCardSet::withTitle($request->title)

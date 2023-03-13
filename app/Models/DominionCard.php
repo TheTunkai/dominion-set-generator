@@ -38,11 +38,6 @@ class DominionCard extends Model
         return $this->belongsToMany(DominionCardSet::class, 'dominion_cards_dominion_card_sets');
     }
 
-    public function dominionCardDominionCardSet(): HasMany
-    {
-        return $this->hasMany(DominionCardSetDominionCard::class);
-    }
-
     public static function databaseSearch(ShowDominionCardsRequest $request)
     {
         return DominionCard::withName($request->name)
@@ -50,7 +45,7 @@ class DominionCard extends Model
             ->withEffects($request->effects)
             ->withTypes($request->types)
             ->orderBy('name')
-            ->get();
+            ->simplePaginate(10);
     }
 
     public function scopeWithName(Builder $query, string|null $name = '')

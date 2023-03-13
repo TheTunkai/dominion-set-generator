@@ -4,8 +4,7 @@ export const multiSelectClasses = {
     label: "text-emerald-50 text-md",
     defaultValue: "bg-emerald-400 mx-2",
     defaultValueLabel: "text-black",
-    defaultValueRemove:
-        "text-black hover:bg-emerald-500 hover:bg-opacity-40",
+    defaultValueRemove: "text-black hover:bg-emerald-500 hover:bg-opacity-40",
     values: "bg-white max-w-[16rem] pl-2",
     wrapper: "rounded",
     searchInput: "focus:shadow-none focus:ring-0",
@@ -23,6 +22,3 @@ export const selectClasses = {
     label: "text-emerald-50 text-md",
     item: "hover:bg-emerald-100",
 };
-
-export const tabClasses =
-    "transition duration-75 text-lg bg-emerald-400 bg-opacity-50 hover:bg-opacity-80 hover:bg-emerald-400 aria-selected:bg-opacity-90 aria-selected:text-white aria-selected:font-semibold text-emerald-50";
