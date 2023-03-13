@@ -1,4 +1,4 @@
-import { Card } from "@mantine/core";
+import {Card, Image} from "@mantine/core";
 
 export default function CardSetGrid(props) {
     const cardElements = props.cardSets.map((set) => (
@@ -12,9 +12,16 @@ export default function CardSetGrid(props) {
             <h5 className="text-emerald-50 text-md font-normal">
                 Author: {set.author}
             </h5>
-            
+            <div className="grid grid-cols-5 gap-2 mt-5">
+                {set.cards.map(card => <Image
+                    src={card.image}
+                    maw={60}
+                    radius="sm"
+                    alt={`${card.name} card image`}
+                />)}
+            </div>
         </Card>
     ));
 
-    return <div className="grid grid-cols-5 gap-6">{cardElements}</div>;
+    return <div className="grid grid-cols-3 gap-6">{cardElements}</div>;
 }

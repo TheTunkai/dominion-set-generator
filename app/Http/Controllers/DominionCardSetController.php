@@ -9,10 +9,8 @@ use App\Models\DominionCardSet;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class DominionCardSetController extends Controller
-{
-    public function show(ShowDominionCardSetsRequest $request)
-    {
+class DominionCardSetController extends Controller {
+    public function show(ShowDominionCardSetsRequest $request) {
         $cardSets = DominionCardSet::databaseSearch($request);
 
         return Inertia::render('Library', [
@@ -20,8 +18,7 @@ class DominionCardSetController extends Controller
         ]);
     }
 
-    public function store(StoreDominionCardSetRequest $request)
-    {
+    public function store(StoreDominionCardSetRequest $request) {
         $cardSet = DominionCardSet::create([
             'title' => $request->title,
             'author' => $request->author

@@ -1,5 +1,5 @@
-import { Head } from "@inertiajs/react";
-import { MultiSelect, Tabs, TextInput } from "@mantine/core";
+import {Head} from "@inertiajs/react";
+import {MultiSelect, Tabs, TextInput} from "@mantine/core";
 import {
     MagnifyingGlassIcon,
     ExclamationCircleIcon,
@@ -7,9 +7,9 @@ import {
     CheckCircleIcon,
     Alert,
 } from "@heroicons/react/24/outline";
-import { useForm } from "@inertiajs/react";
-import { useState } from "react";
-import { messages } from "@/inputMessages";
+import {useForm} from "@inertiajs/react";
+import {useState} from "react";
+import {messages} from "@/inputMessages";
 import CardSetGrid from "@/Components/CardSetGrid";
 
 export default function Library(props) {
@@ -75,9 +75,9 @@ export default function Library(props) {
         isInputWrong()
             ? setShowAlert(true)
             : post(route("add-card-set"), {
-                  preserveScroll: true,
-                  onSuccess: () => handlePostSuccess(),
-              });
+                preserveScroll: true,
+                onSuccess: () => handlePostSuccess(),
+            });
     }
 
     function getAllCardsNames() {
@@ -110,14 +110,14 @@ export default function Library(props) {
                         <Tabs.Tab
                             className={tabClasses}
                             value="search"
-                            icon={<MagnifyingGlassIcon className="h-6" />}
+                            icon={<MagnifyingGlassIcon className="h-6"/>}
                         >
                             Cardset Search
                         </Tabs.Tab>
                         <Tabs.Tab
                             className={tabClasses}
                             value="add-set"
-                            icon={<PlusIcon className="h-6" />}
+                            icon={<PlusIcon className="h-6"/>}
                         >
                             Add Cardset
                         </Tabs.Tab>
@@ -158,11 +158,12 @@ export default function Library(props) {
                                         }
                                     />
                                 </div>
-                                <button className="rounded-lg text-lg px-6 py-2 font-semibold uppercase bg-opacity-70 bg-emerald-500 hover:bg-opacity-100 transition duration-75">
+                                <button
+                                    className="rounded-lg text-lg px-6 py-2 font-semibold uppercase bg-opacity-70 bg-emerald-500 hover:bg-opacity-100 transition duration-75">
                                     Search
                                 </button>
                                 <div>
-                                    <h3 className="font-semibold text-xl text-center">
+                                    <h3 className="font-semibold text-xl text-center mb-10 mt-5">
                                         Search Results
                                     </h3>
                                     <div>
@@ -178,7 +179,7 @@ export default function Library(props) {
                                 className="flex flex-col gap-8 items-center"
                                 onSubmit={handleSubmit}
                             >
-                                <div className="grid grid-cols-2 gap-8">
+                                <div className="grid grid-cols-3 gap-8">
                                     <TextInput
                                         id="title"
                                         label="Cardset title"
@@ -192,6 +193,9 @@ export default function Library(props) {
                                             )
                                         }
                                     />
+                                    <TextInput id="author" label="Author name" placeholder="Author name"
+                                               classNames={textInputClasses} value={postData.author}
+                                               onChange={(event) => setPostData('author', event.target.value)}/>
                                     <MultiSelect
                                         id="contains-cards"
                                         label="Played cards"
@@ -208,14 +212,15 @@ export default function Library(props) {
                                         }
                                     />
                                 </div>
-                                <button className="rounded-lg text-lg px-6 py-2 font-semibold uppercase bg-opacity-70 bg-emerald-500 hover:bg-opacity-100 transition duration-75">
+                                <button
+                                    className="rounded-lg text-lg px-6 py-2 font-semibold uppercase bg-opacity-70 bg-emerald-500 hover:bg-opacity-100 transition duration-75">
                                     Submit
                                 </button>
                             </form>
                             {showAlert && (
                                 <Alert
                                     className="mt-16 font-normal"
-                                    icon={<ExclamationCircleIcon />}
+                                    icon={<ExclamationCircleIcon/>}
                                     title="Input missing"
                                     color="red"
                                     withCloseButton
@@ -229,7 +234,7 @@ export default function Library(props) {
                                 <Alert
                                     className="mt-16 font-normal"
                                     title="Success"
-                                    icon={<CheckCircleIcon />}
+                                    icon={<CheckCircleIcon/>}
                                     color="teal"
                                     withCloseButton
                                     closeButtonLabel="Close alert"
