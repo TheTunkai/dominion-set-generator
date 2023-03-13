@@ -10,8 +10,10 @@ import {
 import { useForm } from "@inertiajs/react";
 import { useState } from "react";
 import { messages } from "@/inputMessages";
+import CardSetGrid from "@/Components/CardSetGrid";
 
 export default function Library(props) {
+    console.log(props.cardSets)
     const [showAlert, setShowAlert] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const {
@@ -139,7 +141,7 @@ export default function Library(props) {
                                                 event.target.value
                                             )
                                         }
-                                    ></TextInput>
+                                    />
                                     <MultiSelect
                                         id="contains-cards"
                                         label="Played cards"
@@ -154,7 +156,7 @@ export default function Library(props) {
                                                 JSON.stringify(event)
                                             )
                                         }
-                                    ></MultiSelect>
+                                    />
                                 </div>
                                 <button className="rounded-lg text-lg px-6 py-2 font-semibold uppercase bg-opacity-70 bg-emerald-500 hover:bg-opacity-100 transition duration-75">
                                     Search
@@ -163,7 +165,9 @@ export default function Library(props) {
                                     <h3 className="font-semibold text-xl text-center">
                                         Search Results
                                     </h3>
-                                    <div>{props.cardSets}</div>
+                                    <div>
+                                        <CardSetGrid cardSets={props.cardSets}/>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -187,7 +191,7 @@ export default function Library(props) {
                                                 event.target.value
                                             )
                                         }
-                                    ></TextInput>
+                                    />
                                     <MultiSelect
                                         id="contains-cards"
                                         label="Played cards"
@@ -202,7 +206,7 @@ export default function Library(props) {
                                                 JSON.stringify(event)
                                             )
                                         }
-                                    ></MultiSelect>
+                                    />
                                 </div>
                                 <button className="rounded-lg text-lg px-6 py-2 font-semibold uppercase bg-opacity-70 bg-emerald-500 hover:bg-opacity-100 transition duration-75">
                                     Submit

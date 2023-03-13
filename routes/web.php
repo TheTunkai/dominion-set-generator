@@ -30,7 +30,7 @@ Route::get('/database', function () {
 })->name('database');
 
 Route::get('/library', function () {
-    return Inertia::render('Library', ['cardSets' => DominionCardSet::all(), 'allCards' => DominionCard::all()]);
+    return Inertia::render('Library', ['cardSets' => DominionCardSet::with('cards')->get(), 'allCards' => DominionCard::all()]);
 })->name('library');
 
 Route::get('/database/search-cards', [DominionCardController::class, 'show'])->name('search-cards');

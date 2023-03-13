@@ -29,6 +29,7 @@ class DominionCardSetController extends Controller
 
         $cardNames = json_decode($request->playedCards);
 
+
         foreach ($cardNames as $cardName) {
             $currentCard = DominionCard::firstWhere('name', $cardName);
             $cardSet->cards()->attach($currentCard->id);

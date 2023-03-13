@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dominion_cards_dominion_card_sets', function (Blueprint $table) {
+        Schema::create('dominion_card_dominion_card_set', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('dominion_card_id');
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dominion_cards_dominion_card_sets');
+        Schema::dropIfExists('dominion_card_dominion_card_sets');
     }
 };
