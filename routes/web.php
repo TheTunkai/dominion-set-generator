@@ -26,12 +26,29 @@ Route::get('/', function () {
 });
 
 Route::get('/database', function () {
-    return Inertia::render('Database', ['cards' => DominionCard::simplePaginate(10)]);
+    return Inertia::render('Database',
+        [
+            'cards' => DominionCard::simplePaginate(10),
+        ]
+    );
 })->name('database');
 
 Route::get('/library', function () {
-    return Inertia::render('Library', ['cardSets' => DominionCardSet::with('cards')->simplePaginate(3), 'allCards' => DominionCard::all()]);
+    return Inertia::render('Library',
+        [
+            'cardSets' => DominionCardSet::with('cards')->simplePaginate(3),
+            'allCards' => DominionCard::all()
+        ]
+    );
 })->name('library');
+
+Route::get('/generator', function () {
+    return Inertia::render('SetGenerator',
+        [
+            'allCards' => DominionCard::all()
+        ]
+    );
+})->name('generator');
 
 Route::get('/database/search-cards', [DominionCardController::class, 'show'])->name('search-cards');
 

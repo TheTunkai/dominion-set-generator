@@ -10,14 +10,9 @@ import {useForm} from "@inertiajs/react";
 import {useState} from "react";
 import {messages} from "@/inputMessages";
 import CardSetGrid from "@/Components/CardSetGrid";
-import {
-    ChevronDoubleLeftIcon,
-    ChevronDoubleRightIcon,
-} from "@heroicons/react/20/solid";
 import Pagination from "@/Components/Pagination";
 
 export default function Library(props) {
-    console.log(props.cardSets);
     const [showAlert, setShowAlert] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const {
@@ -85,7 +80,7 @@ export default function Library(props) {
     }
 
     function getAllCardsNames() {
-        return props.allCards.map((card) => card.name);
+        return props.allCards?.map((card) => card.name);
     }
 
     function isInputWrong() {

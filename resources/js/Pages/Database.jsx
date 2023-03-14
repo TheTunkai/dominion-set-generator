@@ -19,16 +19,10 @@ import {
     CheckCircleIcon,
 } from "@heroicons/react/24/outline";
 import CardGrid from "@/Components/CardGrid";
-import {
-    ChevronDoubleRightIcon,
-    ChevronDoubleLeftIcon,
-} from "@heroicons/react/20/solid";
-
 import {messages} from "@/inputMessages";
 import Pagination from "@/Components/Pagination";
 
 export default function Database(props) {
-    console.log(props.cards);
     const [showAlert, setShowAlert] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const {
