@@ -1,21 +1,23 @@
-import { Head } from "@inertiajs/react";
-import { MultiSelect, Tabs, TextInput, Alert } from "@mantine/core";
+import {Head} from "@inertiajs/react";
+import {MultiSelect, Tabs, TextInput, Alert} from "@mantine/core";
 import {
     MagnifyingGlassIcon,
     ExclamationCircleIcon,
     PlusIcon,
     CheckCircleIcon,
 } from "@heroicons/react/24/outline";
-import { useForm } from "@inertiajs/react";
-import { useState } from "react";
-import { messages } from "@/inputMessages";
+import {useForm} from "@inertiajs/react";
+import {useState} from "react";
+import {messages} from "@/inputMessages";
 import CardSetGrid from "@/Components/CardSetGrid";
 import {
     ChevronDoubleLeftIcon,
     ChevronDoubleRightIcon,
 } from "@heroicons/react/20/solid";
+import Pagination from "@/Components/Pagination";
 
 export default function Library(props) {
+    console.log(props.cardSets);
     const [showAlert, setShowAlert] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const {
@@ -77,9 +79,9 @@ export default function Library(props) {
         isInputWrong()
             ? setShowAlert(true)
             : post(route("add-card-set"), {
-                  preserveScroll: true,
-                  onSuccess: () => handlePostSuccess(),
-              });
+                preserveScroll: true,
+                onSuccess: () => handlePostSuccess(),
+            });
     }
 
     function getAllCardsNames() {
@@ -112,14 +114,14 @@ export default function Library(props) {
                         <Tabs.Tab
                             className={tabClasses}
                             value="search"
-                            icon={<MagnifyingGlassIcon className="h-6" />}
+                            icon={<MagnifyingGlassIcon className="h-6"/>}
                         >
                             Cardset Search
                         </Tabs.Tab>
                         <Tabs.Tab
                             className={tabClasses}
                             value="add-set"
-                            icon={<PlusIcon className="h-6" />}
+                            icon={<PlusIcon className="h-6"/>}
                         >
                             Add Cardset
                         </Tabs.Tab>
@@ -151,7 +153,7 @@ export default function Library(props) {
                                         variant="unstyled"
                                         classNames={multiSelectClasses}
                                         data={getAllCardsNames()}
-                                        value={getData.playedCards}
+                                        value={JSON.parse(getData.playedCards)}
                                         onChange={(event) =>
                                             setGetData(
                                                 "playedCards",
@@ -160,7 +162,8 @@ export default function Library(props) {
                                         }
                                     />
                                 </div>
-                                <button className="rounded-lg text-lg px-6 py-2 font-semibold uppercase bg-opacity-70 bg-emerald-500 hover:bg-opacity-100 transition duration-75">
+                                <button
+                                    className="rounded-lg text-lg px-6 py-2 font-semibold uppercase bg-opacity-70 bg-emerald-500 hover:bg-opacity-100 transition duration-75">
                                     Search
                                 </button>
                                 <div>
@@ -171,36 +174,7 @@ export default function Library(props) {
                                         <CardSetGrid
                                             cardSets={props.cardSets.data}
                                         />
-                                        <div className="grid grid-cols-2 mt-8">
-                                            {props.cardSets.prev_page_url && (
-                                                <a
-                                                    className="col-start-1"
-                                                    href={
-                                                        props.cardSets
-                                                            .prev_page_url
-                                                    }
-                                                >
-                                                    <button className="font-medium text-lg rounded-lg bg-emerald-500 bg-opacity-70 hover:bg-opacity-100 hover:underline mx-auto px-6 py-1 flex items-center gap-2">
-                                                        <ChevronDoubleLeftIcon className="h-5" />
-                                                        Prev
-                                                    </button>
-                                                </a>
-                                            )}
-                                            {props.cardSets.next_page_url && (
-                                                <a
-                                                    className="col-start-2"
-                                                    href={
-                                                        props.cardSets
-                                                            .next_page_url
-                                                    }
-                                                >
-                                                    <button className="font-medium text-lg rounded-lg bg-emerald-500 bg-opacity-70 hover:bg-opacity-100 hover:underline mx-auto px-6 py-1 flex items-center gap-2">
-                                                        Next
-                                                        <ChevronDoubleRightIcon className="h-5" />
-                                                    </button>
-                                                </a>
-                                            )}
-                                        </div>
+                                        <Pagination pageData={props.cardSets}/>
                                     </div>
                                 </div>
                             </form>
@@ -246,7 +220,7 @@ export default function Library(props) {
                                         variant="unstyled"
                                         classNames={multiSelectClasses}
                                         data={getAllCardsNames()}
-                                        value={postData.playedCards}
+                                        value={JSON.parse(postData.playedCards)}
                                         onChange={(event) =>
                                             setPostData(
                                                 "playedCards",
@@ -255,14 +229,15 @@ export default function Library(props) {
                                         }
                                     />
                                 </div>
-                                <button className="rounded-lg text-lg px-6 py-2 font-semibold uppercase bg-opacity-70 bg-emerald-500 hover:bg-opacity-100 transition duration-75">
+                                <button
+                                    className="rounded-lg text-lg px-6 py-2 font-semibold uppercase bg-opacity-70 bg-emerald-500 hover:bg-opacity-100 transition duration-75">
                                     Submit
                                 </button>
                             </form>
                             {showAlert && (
                                 <Alert
                                     className="mt-16 font-normal"
-                                    icon={<ExclamationCircleIcon />}
+                                    icon={<ExclamationCircleIcon/>}
                                     title="Input missing"
                                     color="red"
                                     withCloseButton
@@ -276,7 +251,7 @@ export default function Library(props) {
                                 <Alert
                                     className="mt-16 font-normal"
                                     title="Success"
-                                    icon={<CheckCircleIcon />}
+                                    icon={<CheckCircleIcon/>}
                                     color="teal"
                                     withCloseButton
                                     closeButtonLabel="Close alert"
