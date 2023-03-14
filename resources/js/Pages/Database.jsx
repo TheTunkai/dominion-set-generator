@@ -283,6 +283,7 @@ export default function Database(props) {
                             <h3 className="font-semibold text-xl text-center mb-8">
                                 Search Results
                             </h3>
+                            
                             <CardGrid
                                 cards={props.cards.data}
                                 handleDelete={handleDelete}

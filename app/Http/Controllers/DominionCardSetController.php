@@ -15,7 +15,8 @@ class DominionCardSetController extends Controller {
         $cardSets = DominionCardSet::databaseSearch($request);
 
         return Inertia::render('Library', [
-            'cardSets' => $cardSets
+            'cardSets' => $cardSets,
+            'allCards' => DominionCard::all()
         ]);
     }
 

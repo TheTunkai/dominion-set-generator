@@ -32,19 +32,24 @@ class DominionCardSet extends Model
 
     public static function databaseSearch(ShowDominionCardSetsRequest $request)
     {
-        return DominionCardSet::withTitle($request->title)
-            ->withCards($request->cards)
+        return DominionCardSet::with('cards')
+            ->withTitle($request->title != null ? $request->title : '')
+            ->withCards($request->playedCards != null ? $request->playedCards : '')
             ->orderBy('title')
-            ->get();
+            ->simplePaginate(3);
     }
 
     public function scopeWithTitle(Builder $query, string $title = '')
     {
-        $query->where('title', 'like', $title);
+        $query->where('title', 'like', '%' . $title . '%');
     }
 
-    public function scopeWithCards(Builder $query, string $cards)
+    public function scopeWithCards(Builder $query, string $cards = '')
     {
-        $query->cards()->whereIn('name', json_decode($cards));
+        $query->when($cards != '', function (Builder $query) use ($cards) {
+            $query->whereHas('cards', function (Builder $query) use ($cards) {
+                $query->whereIn('name', json_decode($cards));
+            });
+        });
     }
 }

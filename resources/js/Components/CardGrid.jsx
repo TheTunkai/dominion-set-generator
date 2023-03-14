@@ -1,7 +1,7 @@
 import {Image, Card} from "@mantine/core";
 
 export default function CardGrid(props) {
-    const cardElements = props.cards.map((card) => (
+    const cardElements = props.cards?.map((card) => (
         <Card
             key={card.id}
             radius="md"

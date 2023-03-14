@@ -13,7 +13,7 @@ export default function CardSetGrid(props) {
                 Author: {set.author}
             </h5>
             <div className="grid grid-cols-5 gap-2 mt-5">
-                {set.cards.map((card, index) => <Image
+                {set.cards?.map((card, index) => <Image
                     key={set.title + "-" + card.id + index}
                     src={card.image}
                     maw={60}

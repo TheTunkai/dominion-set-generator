@@ -1,14 +1,14 @@
-import {Head} from "@inertiajs/react";
-import {MultiSelect, Tabs, TextInput, Alert} from "@mantine/core";
+import { Head } from "@inertiajs/react";
+import { MultiSelect, Tabs, TextInput, Alert } from "@mantine/core";
 import {
     MagnifyingGlassIcon,
     ExclamationCircleIcon,
     PlusIcon,
     CheckCircleIcon,
 } from "@heroicons/react/24/outline";
-import {useForm} from "@inertiajs/react";
-import {useState} from "react";
-import {messages} from "@/inputMessages";
+import { useForm } from "@inertiajs/react";
+import { useState } from "react";
+import { messages } from "@/inputMessages";
 import CardSetGrid from "@/Components/CardSetGrid";
 import Pagination from "@/Components/Pagination";
 
@@ -66,6 +66,10 @@ export default function Library(props) {
     function handleSearch(event) {
         event.preventDefault();
         console.log(getData);
+        get(route("search-cardsets"), {
+            preserveScroll: true,
+            onSuccess: resetGetForm(),
+        });
     }
 
     function handleSubmit(event) {
@@ -74,9 +78,9 @@ export default function Library(props) {
         isInputWrong()
             ? setShowAlert(true)
             : post(route("add-card-set"), {
-                preserveScroll: true,
-                onSuccess: () => handlePostSuccess(),
-            });
+                  preserveScroll: true,
+                  onSuccess: () => handlePostSuccess(),
+              });
     }
 
     function getAllCardsNames() {
@@ -109,14 +113,14 @@ export default function Library(props) {
                         <Tabs.Tab
                             className={tabClasses}
                             value="search"
-                            icon={<MagnifyingGlassIcon className="h-6"/>}
+                            icon={<MagnifyingGlassIcon className="h-6" />}
                         >
                             Cardset Search
                         </Tabs.Tab>
                         <Tabs.Tab
                             className={tabClasses}
                             value="add-set"
-                            icon={<PlusIcon className="h-6"/>}
+                            icon={<PlusIcon className="h-6" />}
                         >
                             Add Cardset
                         </Tabs.Tab>
@@ -157,8 +161,7 @@ export default function Library(props) {
                                         }
                                     />
                                 </div>
-                                <button
-                                    className="rounded-lg text-lg px-6 py-2 font-semibold uppercase bg-opacity-70 bg-emerald-500 hover:bg-opacity-100 transition duration-75">
+                                <button className="rounded-lg text-lg px-6 py-2 font-semibold uppercase bg-opacity-70 bg-emerald-500 hover:bg-opacity-100 transition duration-75">
                                     Search
                                 </button>
                                 <div>
@@ -169,7 +172,7 @@ export default function Library(props) {
                                         <CardSetGrid
                                             cardSets={props.cardSets.data}
                                         />
-                                        <Pagination pageData={props.cardSets}/>
+                                        <Pagination pageData={props.cardSets} />
                                     </div>
                                 </div>
                             </form>
@@ -224,15 +227,14 @@ export default function Library(props) {
                                         }
                                     />
                                 </div>
-                                <button
-                                    className="rounded-lg text-lg px-6 py-2 font-semibold uppercase bg-opacity-70 bg-emerald-500 hover:bg-opacity-100 transition duration-75">
+                                <button className="rounded-lg text-lg px-6 py-2 font-semibold uppercase bg-opacity-70 bg-emerald-500 hover:bg-opacity-100 transition duration-75">
                                     Submit
                                 </button>
                             </form>
                             {showAlert && (
                                 <Alert
                                     className="mt-16 font-normal"
-                                    icon={<ExclamationCircleIcon/>}
+                                    icon={<ExclamationCircleIcon />}
                                     title="Input missing"
                                     color="red"
                                     withCloseButton
@@ -246,7 +248,7 @@ export default function Library(props) {
                                 <Alert
                                     className="mt-16 font-normal"
                                     title="Success"
-                                    icon={<CheckCircleIcon/>}
+                                    icon={<CheckCircleIcon />}
                                     color="teal"
                                     withCloseButton
                                     closeButtonLabel="Close alert"

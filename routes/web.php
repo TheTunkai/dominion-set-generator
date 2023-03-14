@@ -26,7 +26,8 @@ Route::get('/', function () {
 });
 
 Route::get('/database', function () {
-    return Inertia::render('Database',
+    return Inertia::render(
+        'Database',
         [
             'cards' => DominionCard::simplePaginate(10),
         ]
@@ -34,7 +35,8 @@ Route::get('/database', function () {
 })->name('database');
 
 Route::get('/library', function () {
-    return Inertia::render('Library',
+    return Inertia::render(
+        'Library',
         [
             'cardSets' => DominionCardSet::with('cards')->simplePaginate(3),
             'allCards' => DominionCard::all()
@@ -43,7 +45,8 @@ Route::get('/library', function () {
 })->name('library');
 
 Route::get('/generator', function () {
-    return Inertia::render('SetGenerator',
+    return Inertia::render(
+        'SetGenerator',
         [
             'allCards' => DominionCard::all()
         ]
@@ -51,6 +54,7 @@ Route::get('/generator', function () {
 })->name('generator');
 
 Route::get('/database/search-cards', [DominionCardController::class, 'show'])->name('search-cards');
+Route::get('/library/search-cardsets', [DominionCardSetController::class, 'show'])->name('search-cardsets');
 
 Route::post('/database/add-card', [DominionCardController::class, 'store'])->name('add-card');
 Route::post('/library/add-card-set', [DominionCardSetController::class, 'store'])->name('add-card-set');
