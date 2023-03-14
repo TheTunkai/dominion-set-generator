@@ -27,7 +27,7 @@ import {
 import { messages } from "@/inputMessages";
 
 export default function Database(props) {
-    console.log(props.cards.data);
+    console.log(props.cards);
     const [showAlert, setShowAlert] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const {
