@@ -1,11 +1,9 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+
 use App\Http\Controllers\DominionCardController;
 use App\Http\Controllers\DominionCardSetController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
 use App\Models\DominionCard;
 use App\Models\DominionCardSet;
 use Inertia\Inertia;
@@ -58,6 +56,7 @@ Route::get('/library/search-cardsets', [DominionCardSetController::class, 'show'
 
 Route::post('/database/add-card', [DominionCardController::class, 'store'])->name('add-card');
 Route::post('/library/add-card-set', [DominionCardSetController::class, 'store'])->name('add-card-set');
+Route::post('/generator/generate-set', [DominionCardSetController::class, 'generate'])->name('generate-set');
 
 Route::delete('/database/delete-card', [DominionCardController::class, 'destroy'])->name('delete-card');
 
