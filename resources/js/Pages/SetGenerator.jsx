@@ -1,3 +1,5 @@
+import CardGrid from "@/Components/CardGrid";
+import CardSetDisplay from "@/Components/CardSetDisplay";
 import { Head, useForm } from "@inertiajs/react";
 import { MultiSelect, TextInput, LoadingOverlay } from "@mantine/core";
 
@@ -106,6 +108,11 @@ export default function SetGenerator(props) {
                         <button className="rounded-lg text-lg px-6 py-2 font-semibold uppercase bg-opacity-70 bg-emerald-500 hover:bg-opacity-100 transition duration-75">
                             Generate
                         </button>
+                        {props.cardSet && (
+                            <div className="mt-12">
+                                <CardGrid cards={props.cardSet} />
+                            </div>
+                        )}
                     </form>
                 </div>
             </main>

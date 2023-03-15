@@ -1,9 +1,9 @@
-import {Image, Card} from "@mantine/core";
+import { Image, Card } from "@mantine/core";
 
 export default function CardGrid(props) {
-    const cardElements = props.cards?.map((card) => (
+    const cardElements = props.cards?.map((card, index) => (
         <Card
-            key={card.id}
+            key={card.id + "-" + index}
             radius="md"
             shadow="sm"
             className="flex justify-center relative bg-emerald-500 bg-opacity-30"
@@ -14,10 +14,8 @@ export default function CardGrid(props) {
                 radius="sm"
                 alt={`${card.name} card image`}
             />
-            <div
-                className="top-100 rounded-lg transition ease-in-out duration-200 absolute bg-emerald-700 hover:top-0 hover:backdrop-blur-sm hover:bg-opacity-40 bg-opacity-0 h-full w-full">
-                <div
-                    className="absolute top-100 hover:top-50 transition duration-200 opacity-0 hover:opacity-100 h-full w-full text-white font-medium flex flex-col gap-2 justify-center pl-4">
+            <div className="top-100 rounded-lg transition ease-in-out duration-200 absolute bg-emerald-700 hover:top-0 hover:backdrop-blur-sm hover:bg-opacity-40 bg-opacity-0 h-full w-full">
+                <div className="absolute top-100 hover:top-50 transition duration-200 opacity-0 hover:opacity-100 h-full w-full text-white font-medium flex flex-col gap-2 justify-center pl-4">
                     <span>Card name: {card.name}</span>
                     <span>Card cost: {card.cost}</span>
                     <span>

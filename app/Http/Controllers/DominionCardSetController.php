@@ -44,18 +44,23 @@ class DominionCardSetController extends Controller
         $cardNames = json_decode($request->cards);
         $cardsToAdd = 10 - count($cardNames);
         $cards = DominionCard::all();
-        $cadrSet = [];
+        $cardSet = [];
 
         foreach ($cardNames as $cardName) {
             array_push($cardSet, DominionCard::firstWhere('name', $cardName));
         }
 
         for ($i = 0; $i < $cardsToAdd; $i++) {
-            array_push($cardSet, $cards->random());
+            $randomCard = $cards->random();
+            array_push($cardSet, $randomCard);
+            $cards->forget($randomCard->id);
         }
 
-        return Inertia::render('SetGenerator', [
-            'cardSet' => $cardSet
+        return Inertia::render(
+            'SetGenerator',
+            [
+                'cardSet' => $cardSet,
+                'allCards' => DominionCard::all()
             ]
         );
     }
