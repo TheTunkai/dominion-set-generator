@@ -2,17 +2,17 @@ import { Container, Group, Header } from "@mantine/core";
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function SimpleHeader({ links }) {
-    const [activeLink, setActiveLink] = useState(links[0].link);
+export default function SimpleHeader({ links, currentPageTitle }) {
+    const [activePage, setActivePage] = useState(currentPageTitle);
 
     const items = links.map((link) => {
         return (
             <Link
                 key={link.label}
                 href={link.link}
-                onClick={() => setActiveLink(link.link)}
+                onClick={() => setActivePage(link.label)}
                 className={`${
-                    link.link === activeLink
+                    link.label === activePage
                         ? "border-b-2 border-b-emerald-300 bg-emerald-300 bg-opacity-10 -mb-0.5 font-semibold"
                         : ""
                 } font-medium text-md md:text-lg py-5 px-8 hover:text-white hover:border-b-2 hover:border-b-emerald-300 hover:bg-emerald-300 hover:bg-opacity-10 hover:-mb-0.5 transition duration-75`}

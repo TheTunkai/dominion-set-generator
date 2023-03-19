@@ -1,5 +1,6 @@
 import CardGrid from "@/Components/CardGrid";
 import CardSetDisplay from "@/Components/CardSetDisplay";
+import MainLayout from "@/layouts/MainLayout";
 import { Head, useForm } from "@inertiajs/react";
 import { MultiSelect, TextInput, LoadingOverlay } from "@mantine/core";
 
@@ -119,3 +120,7 @@ export default function SetGenerator(props) {
         </>
     );
 }
+
+SetGenerator.layout = (page) => (
+    <MainLayout children={page} title="Set Generator" />
+);

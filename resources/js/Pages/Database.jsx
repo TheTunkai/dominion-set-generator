@@ -1,6 +1,6 @@
-import {Head, router} from "@inertiajs/react";
-import {useState} from "react";
-import {useForm} from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
+import { useState } from "react";
+import { useForm } from "@inertiajs/react";
 import {
     MultiSelect,
     TextInput,
@@ -19,8 +19,9 @@ import {
     CheckCircleIcon,
 } from "@heroicons/react/24/outline";
 import CardGrid from "@/Components/CardGrid";
-import {messages} from "@/inputMessages";
+import { messages } from "@/inputMessages";
 import Pagination from "@/Components/Pagination";
+import MainLayout from "@/layouts/MainLayout";
 
 export default function Database(props) {
     const [showAlert, setShowAlert] = useState(false);
@@ -56,39 +57,39 @@ export default function Database(props) {
     });
 
     const cardTypes = [
-        {label: "Action", value: "action"},
-        {label: "Treasure", value: "treasure"},
-        {label: "Victory", value: "victory"},
-        {label: "Curse", value: "curse"},
-        {label: "Attack", value: "attack"},
-        {label: "Reaction", value: "reaction"},
+        { label: "Action", value: "action" },
+        { label: "Treasure", value: "treasure" },
+        { label: "Victory", value: "victory" },
+        { label: "Curse", value: "curse" },
+        { label: "Attack", value: "attack" },
+        { label: "Reaction", value: "reaction" },
     ];
 
     const cardEffects = [
-        {label: "+ Actions", value: "actions"},
-        {label: "+ Cards", value: "cards"},
-        {label: "+ Buys", value: "buys"},
-        {label: "+ Coins", value: "coins"},
-        {label: "Trash cards", value: "trash"},
-        {label: "Gain card/s", value: "gain"},
-        {label: "Victory points", value: "victory"},
-        {label: "Junk", value: "junk"},
+        { label: "+ Actions", value: "actions" },
+        { label: "+ Cards", value: "cards" },
+        { label: "+ Buys", value: "buys" },
+        { label: "+ Coins", value: "coins" },
+        { label: "Trash cards", value: "trash" },
+        { label: "Gain card/s", value: "gain" },
+        { label: "Victory points", value: "victory" },
+        { label: "Junk", value: "junk" },
     ];
 
     const cardCosts = [
-        {value: 0, label: "0"},
-        {value: 1, label: "1"},
-        {value: 2, label: "2"},
-        {value: 3, label: "3"},
-        {value: 4, label: "4"},
-        {value: 5, label: "5"},
-        {value: 6, label: "6"},
-        {value: 7, label: "7"},
-        {value: 8, label: "8"},
-        {value: 9, label: "9"},
-        {value: 10, label: "10"},
-        {value: 11, label: "11"},
-        {value: 12, label: "12"},
+        { value: 0, label: "0" },
+        { value: 1, label: "1" },
+        { value: 2, label: "2" },
+        { value: 3, label: "3" },
+        { value: 4, label: "4" },
+        { value: 5, label: "5" },
+        { value: 6, label: "6" },
+        { value: 7, label: "7" },
+        { value: 8, label: "8" },
+        { value: 9, label: "9" },
+        { value: 10, label: "10" },
+        { value: 11, label: "11" },
+        { value: 12, label: "12" },
     ];
 
     const tabClasses =
@@ -126,9 +127,9 @@ export default function Database(props) {
         isPostInputMissing()
             ? setShowAlert(true)
             : post(route("add-card"), {
-                preserveScroll: true,
-                onSuccess: () => handlePostSuccess(),
-            });
+                  preserveScroll: true,
+                  onSuccess: () => handlePostSuccess(),
+              });
     }
 
     function handleSearch(event) {
@@ -142,7 +143,7 @@ export default function Database(props) {
     function handleDelete(event, id) {
         event.preventDefault();
         console.log(id);
-        router.delete(route("delete-card", {id: id}));
+        router.delete(route("delete-card", { id: id }));
     }
 
     function isPostInputMissing() {
@@ -189,14 +190,14 @@ export default function Database(props) {
                         <Tabs.Tab
                             className={tabClasses}
                             value="search"
-                            icon={<MagnifyingGlassIcon className="h-6"/>}
+                            icon={<MagnifyingGlassIcon className="h-6" />}
                         >
                             Card Search
                         </Tabs.Tab>
                         <Tabs.Tab
                             className={tabClasses}
                             value="add-card"
-                            icon={<PlusIcon className="h-6"/>}
+                            icon={<PlusIcon className="h-6" />}
                         >
                             Add Cards
                         </Tabs.Tab>
@@ -263,15 +264,14 @@ export default function Database(props) {
                                         classNames={multiSelectClasses}
                                     />
                                 </div>
-                                <button
-                                    className="rounded-lg text-lg px-6 py-2 font-semibold uppercase bg-opacity-70 bg-emerald-500 hover:bg-opacity-100 transition duration-75">
+                                <button className="rounded-lg text-lg px-6 py-2 font-semibold uppercase bg-opacity-70 bg-emerald-500 hover:bg-opacity-100 transition duration-75">
                                     Search
                                 </button>
                             </form>
                             {Object.keys(props.errors).length !== 0 && (
                                 <Alert
                                     className="mt-12 font-normal"
-                                    icon={<ExclamationCircleIcon/>}
+                                    icon={<ExclamationCircleIcon />}
                                     title="Error in input fields"
                                     color="red"
                                 >
@@ -283,12 +283,12 @@ export default function Database(props) {
                             <h3 className="font-semibold text-xl text-center mb-8">
                                 Search Results
                             </h3>
-                            
+
                             <CardGrid
                                 cards={props.cards.data}
                                 handleDelete={handleDelete}
                             />
-                            <Pagination pageData={props.cards}/>
+                            <Pagination pageData={props.cards} />
                         </div>
                     </Tabs.Panel>
                     <Tabs.Panel value="add-card" pt="xl">
@@ -296,7 +296,7 @@ export default function Database(props) {
                             <LoadingOverlay
                                 visible={processingPost}
                                 overlayBlur={2}
-                                loaderProps={{color: "green"}}
+                                loaderProps={{ color: "green" }}
                             />
                             <form
                                 className="flex flex-col gap-8 items-center"
@@ -384,15 +384,14 @@ export default function Database(props) {
                                         />
                                     )}
                                 </div>
-                                <button
-                                    className="rounded-lg text-lg px-6 py-2 font-semibold uppercase bg-opacity-70 bg-emerald-500 hover:bg-opacity-100 transition duration-75">
+                                <button className="rounded-lg text-lg px-6 py-2 font-semibold uppercase bg-opacity-70 bg-emerald-500 hover:bg-opacity-100 transition duration-75">
                                     Submit
                                 </button>
                             </form>
                             {showAlert && (
                                 <Alert
                                     className="mt-16 font-normal"
-                                    icon={<ExclamationCircleIcon/>}
+                                    icon={<ExclamationCircleIcon />}
                                     title="Input missing"
                                     color="red"
                                     withCloseButton
@@ -406,7 +405,7 @@ export default function Database(props) {
                                 <Alert
                                     className="mt-16 font-normal"
                                     title="Success"
-                                    icon={<CheckCircleIcon/>}
+                                    icon={<CheckCircleIcon />}
                                     color="teal"
                                     withCloseButton
                                     closeButtonLabel="Close alert"
@@ -422,3 +421,5 @@ export default function Database(props) {
         </>
     );
 }
+
+Database.layout = (page) => <MainLayout children={page} title="Database" />;

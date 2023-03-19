@@ -11,6 +11,7 @@ import { useState } from "react";
 import { messages } from "@/inputMessages";
 import CardSetGrid from "@/Components/CardSetGrid";
 import Pagination from "@/Components/Pagination";
+import MainLayout from "@/layouts/MainLayout";
 
 export default function Library(props) {
     const [showAlert, setShowAlert] = useState(false);
@@ -264,3 +265,5 @@ export default function Library(props) {
         </>
     );
 }
+
+Library.layout = (page) => <MainLayout children={page} title="Library" />;

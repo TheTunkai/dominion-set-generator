@@ -20,18 +20,10 @@ createInertiaApp({
         ),
     setup({ el, App, props }) {
         const root = createRoot(el);
-        const links = [
-            { label: "Home", link: "/" },
-            { label: "Database", link: "/database" },
-            { label: "Library", link: "/library" },
-            { label: "Set Generator", link: "/generator" },
-        ];
 
         root.render(
             <MantineProvider withGlobalStyles>
-                <SimpleHeader links={links} />
                 <App {...props} />
-                <SimpleFooter />
             </MantineProvider>
         );
     },
