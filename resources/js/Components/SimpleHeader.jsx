@@ -1,6 +1,7 @@
 import { Container, Group, Header } from "@mantine/core";
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
+import { Square3Stack3DIcon } from "@heroicons/react/20/solid";
 
 export default function SimpleHeader({ links, currentPageTitle }) {
     const [activePage, setActivePage] = useState(currentPageTitle);
@@ -25,7 +26,10 @@ export default function SimpleHeader({ links, currentPageTitle }) {
     return (
         <header className="bg-emerald-500 bg-opacity-70 border-b border-emerald-700 border-opacity-50 shadow-lg">
             <nav className="grid grid-cols-3">
-                <div className="flex items-center justify-start pl-8">Logo</div>
+                <Link className="flex flex-col justify-center items-start pl-8" href="/">
+                    <Square3Stack3DIcon className="h-8" />
+                    DSG
+                </Link>
                 <div className="flex justify-start">{items}</div>
             </nav>
         </header>
